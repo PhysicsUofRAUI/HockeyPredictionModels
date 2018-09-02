@@ -100,13 +100,26 @@ def createBaseDataList(teamsList, rawDataFile):
 
 
 #
-# Purpose:
+# Purpose: This function is meant to add the record of the team in
+# 	in the current season.
 #
 # Parameters:
+# 	game: this is the current entry of that will be returned with the record 
+# 		of the team that was also passed in. It will be a list with 7 entries
+# 		if this is the second time the team has been passed in, or it will 
+# 		be a list of 3 if it has not been passed to the function before.
 #
-# Returns:
+# 	currentRecord: this is the currentRecord of the team being passed in. It will 
+# 		be added to the newEntry in the correct place based on the team passed in.
 #
-# teamPlace is whether the team is first in the list or second
+# 	teamPlace: This is the number that will signify which team was passed in. If it is
+# 		0 then the record will be placed first and if it is 1 it will be placed second.
+#
+# Returns: 
+# 	newEntry: This will be entered in the same place as the parameter 'game' was in on the 
+# 		main list. What was changed was that the record of the team passed in will have 
+# 		been added to the list.
+#
 def addRecordToEntry(game, currentRecord, teamPlace) :
     if teamPlace == 0 :
         if len(game) == 7:
@@ -143,17 +156,24 @@ def addRecordToEntry(game, currentRecord, teamPlace) :
 
             return newEntry
 
+
+
 #
-# The next functions will add to our base list.
 #
-#
-# Purpose:
+# Purpose: This function is made for the sole purpose of updating the current
+# 	record of the team passed in.
 #
 # Parameters:
+# 	currentRecord: this is the record of the team before the game passed in
+# 		was played
+#
+# 	game: this is the game that will change the record of the team now
+#
+# 	teamPlace: This identifies the team that is being updated
 #
 # Returns:
+# 	currentRecord: this is the updated record.
 #
-# teamPlace is whether the team is first in the list or second
 def updateCurrentRecord(currentRecord, game, teamPlace):
     if teamPlace == 0:
         if len(game) == 7 :
@@ -183,11 +203,15 @@ def updateCurrentRecord(currentRecord, game, teamPlace):
 
 
 #
-# Purpose:
+# Purpose: This function goes through the entire list of games and add each teams record to
+# 	the game's entry.
 #
 # Parameters:
+# 	mainList: This the entire list of games in the season.
 #
-# Returns:
+# Returns: 
+# 	mainList: This is the same list passed in but with the current record of each
+# 		team added to the game entry.
 #
 def addTeamRecordInCurrentSeason(mainList):
 
@@ -220,11 +244,20 @@ def addTeamRecordInCurrentSeason(mainList):
 
 
 #
-# Purpose:
+# Purpose: This function is designed to return the current record between the teams
+# 	during the current season
 #
 # Parameters:
+#	mainList: This is the list containing all the different games with the team and
+# 		winner listed.
 #
 # Returns:
+# 	listOfRecords: this is the list containing all the records. It's 3rd entry will 
+# 		identify which entry it belongs to in mainList
+#
+# Note: there is a mistake below fix it later when indentation erro is less likely
+# 	counter needs to be incremented
+# 	current set up will not keep track of the records because newListEntry is reset each time
 #
 def returnCurrentRecordBetweenTeams(mainList):
     teams = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
@@ -247,11 +280,19 @@ def returnCurrentRecordBetweenTeams(mainList):
     return listOfRecords
 
 #
-# Purpose:
+# Purpose: this function will add the records between the teams to
+# 	the main list
 #
 # Parameters:
+# 	listOfRecords: This is the list that contains the list of the record
+# 		between the teams for a game with the index specified at index
+# 		2 of the array.
+#
+# 	mainList: this is the lsit of all the games. It is the one that will modified
+# 		to list all the records between the teams.
 #
 # Returns:
+# 	no returns just modification for now :)
 #
 def addRecordsBetweenTeamsToData(listOfRecords, mainList):
     for entry in listOfRecords:
