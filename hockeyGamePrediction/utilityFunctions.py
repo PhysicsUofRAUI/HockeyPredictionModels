@@ -104,20 +104,20 @@ def createBaseDataList(teamsList, rawDataFile):
 # 	in the current season.
 #
 # Parameters:
-# 	game: this is the current entry of that will be returned with the record 
+# 	game: this is the current entry of that will be returned with the record
 # 		of the team that was also passed in. It will be a list with 7 entries
-# 		if this is the second time the team has been passed in, or it will 
+# 		if this is the second time the team has been passed in, or it will
 # 		be a list of 3 if it has not been passed to the function before.
 #
-# 	currentRecord: this is the currentRecord of the team being passed in. It will 
+# 	currentRecord: this is the currentRecord of the team being passed in. It will
 # 		be added to the newEntry in the correct place based on the team passed in.
 #
 # 	teamPlace: This is the number that will signify which team was passed in. If it is
 # 		0 then the record will be placed first and if it is 1 it will be placed second.
 #
-# Returns: 
-# 	newEntry: This will be entered in the same place as the parameter 'game' was in on the 
-# 		main list. What was changed was that the record of the team passed in will have 
+# Returns:
+# 	newEntry: This will be entered in the same place as the parameter 'game' was in on the
+# 		main list. What was changed was that the record of the team passed in will have
 # 		been added to the list.
 #
 def addRecordToEntry(game, currentRecord, teamPlace) :
@@ -209,7 +209,7 @@ def updateCurrentRecord(currentRecord, game, teamPlace):
 # Parameters:
 # 	mainList: This the entire list of games in the season.
 #
-# Returns: 
+# Returns:
 # 	mainList: This is the same list passed in but with the current record of each
 # 		team added to the game entry.
 #
@@ -252,7 +252,7 @@ def addTeamRecordInCurrentSeason(mainList):
 # 		winner listed.
 #
 # Returns:
-# 	listOfRecords: this is the list containing all the records. It's 3rd entry will 
+# 	listOfRecords: this is the list containing all the records. It's 3rd entry will
 # 		identify which entry it belongs to in mainList
 #
 # Note: there is a mistake below fix it later when indentation erro is less likely
@@ -296,11 +296,13 @@ def returnCurrentRecordBetweenTeams(mainList):
 #
 def addRecordsBetweenTeamsToData(listOfRecords, mainList):
     for entry in listOfRecords:
-        mainList[listOfRecords[2]].append(0)
-        mainList[listOfRecords[2]].append(mainList[[listOfRecords[2]]][6])
+        # Make the space for the current record
+        mainList[entry[2]].append(0)
+        mainList[entry[2]].append(mainList[[entry[2]]][6])
 
-        mainList[listOfRecords[2]][6] = listOfRecords[0]
-        mainList[listOfRecords[2]][6] = listOfRecords[1]
+        # add the record
+        mainList[entry[2]][6] = listOfRecords[0]
+        mainList[entry[2]][7] = listOfRecords[1]
 
 
 
