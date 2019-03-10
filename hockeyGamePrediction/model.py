@@ -1,21 +1,30 @@
 import numpy
-import pandas
+import pandas as pd
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.wrappers.scikit_learn import KerasClassifier
-from keras.utils import np_utils
 from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import StratifiedKFold
+from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+from keras.preprocessing.text import Tokenizer
+# create the tokenizer
+t = Tokenizer()
 
 # fix random seed for reproducibility
 seed = 7
 numpy.random.seed(seed)
 
 # load dataset
-dataframe = pandas.read_csv("entries_as_rows.csv", header=None)
-dataset = dataframe.values
+my_data = pd.read_csv("players_as_numbers.csv")
+
+my_data = my_data.dropna()
+
+my_data = my_data.drop('Unnamed: 0', axis=1)
+
+dataset = my_data.values
+
 X = dataset[:,0:38].astype(float)
 Y = dataset[:,38]
 
@@ -23,108 +32,19 @@ Y = dataset[:,38]
 encoder = LabelEncoder()
 encoder.fit(Y)
 encoded_Y = encoder.transform(Y)
-# convert integers to dummy variables (i.e. one hot encoded)
-dummy_y = np_utils.to_categorical(encoded_Y)
 
-# define baseline model
-def baseline_model():
+# baseline model
+def create_baseline():
 	# create model
 	model = Sequential()
-	model.add(Dense(8, input_dim=38, activation='relu'))
-	model.add(Dense(3, activation='softmax'))
+	model.add(Dense(38, input_dim=38, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(1, kernel_initializer='normal', activation='sigmoid'))
 	# Compile model
-	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 	return model
 
-
-estimator = KerasClassifier(build_fn=baseline_model, epochs=200, batch_size=5, verbose=0)
-
-kfold = KFold(n_splits=10, shuffle=True, random_state=seed)
-
-results = cross_val_score(estimator, X, dummy_y, cv=kfold)
-print("real simple model")
-print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
-
-# define baseline model
-def baseline_model():
-	# create model
-	model = Sequential()
-	model.add(Dense(8, input_dim=38, activation='relu'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	# Compile model
-	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-	return model
-
-estimator = KerasClassifier(build_fn=baseline_model, epochs=200, batch_size=5, verbose=0)
-
-kfold = KFold(n_splits=10, shuffle=True, random_state=seed)
-
-results = cross_val_score(estimator, X, dummy_y, cv=kfold)
-print("4 layers with softmax, 200 epochs, batch_size 5")
-print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100)
-
-# define baseline model
-def baseline_model():
-	# create model
-	model = Sequential()
-	model.add(Dense(8, input_dim=38, activation='relu'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	# Compile model
-	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-	return model
-
-estimator = KerasClassifier(build_fn=baseline_model, epochs=1000, batch_size=5, verbose=0)
-
-kfold = KFold(n_splits=10, shuffle=True, random_state=seed)
-
-results = cross_val_score(estimator, X, dummy_y, cv=kfold)
-print("4 layers with softmax, 1000 epochs, batch_size 5")
-print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100)
-
-# define baseline model
-def baseline_model():
-	# create model
-	model = Sequential()
-	model.add(Dense(8, input_dim=38, activation='relu'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	# Compile model
-	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-	return model
-
-estimator = KerasClassifier(build_fn=baseline_model, epochs=2000, batch_size=5, verbose=0)
-
-kfold = KFold(n_splits=10, shuffle=True, random_state=seed)
-
-results = cross_val_score(estimator, X, dummy_y, cv=kfold)
-print("4 layers with softmax, 2000 epochs, batch_size 5")
-print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100)
-
-# define baseline model
-def baseline_model():
-	# create model
-	model = Sequential()
-	model.add(Dense(8, input_dim=38, activation='relu'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	# Compile model
-	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-	return model
-
-estimator = KerasClassifier(build_fn=baseline_model, epochs=5000, batch_size=5, verbose=0)
-
-kfold = KFold(n_splits=10, shuffle=True, random_state=seed)
-
-results = cross_val_score(estimator, X, dummy_y, cv=kfold)
-print("4 layers with softmax, 5000 epochs, batch_size 5")
-print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100)
+# evaluate model with standardized dataset
+estimator = KerasClassifier(build_fn=create_baseline, epochs=100, batch_size=5, verbose=1)
+kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
+results = cross_val_score(estimator, X, encoded_Y, cv=kfold)
+print("Results: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
