@@ -14,7 +14,7 @@ seed = 7
 numpy.random.seed(seed)
 
 # load dataset
-dataframe = pandas.read_csv("iris.csv", header=None)
+dataframe = pandas.read_csv("entries_as_rows.csv", header=None)
 dataset = dataframe.values
 X = dataset[:,0:38].astype(float)
 Y = dataset[:,38]
@@ -42,6 +42,7 @@ estimator = KerasClassifier(build_fn=baseline_model, epochs=200, batch_size=5, v
 kfold = KFold(n_splits=10, shuffle=True, random_state=seed)
 
 results = cross_val_score(estimator, X, dummy_y, cv=kfold)
+print("real simple model")
 print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
 
 # define baseline model
