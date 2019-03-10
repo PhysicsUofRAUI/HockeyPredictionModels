@@ -38,13 +38,16 @@ def create_baseline():
 	# create model
 	model = Sequential()
 	model.add(Dense(38, input_dim=38, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(1, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(50, activation='softmax'))
+	model.add(Dense(50, activation='softmax'))
+	model.add(Dense(50, activation='softmax'))
+	model.add(Dense(50, activation='softmax'))
 	# Compile model
 	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 	return model
 
 # evaluate model with standardized dataset
-estimator = KerasClassifier(build_fn=create_baseline, epochs=100, batch_size=5, verbose=1)
+estimator = KerasClassifier(build_fn=create_baseline, epochs=1000, batch_size=5, verbose=1)
 kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
 results = cross_val_score(estimator, X, encoded_Y, cv=kfold)
 print("Results: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
