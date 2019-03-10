@@ -1,3 +1,0 @@
-2017-10-04,Calgary Flames,0,Edmonton Oilers,3,,18347,2:34,
-2017-10-04,St. Louis Blues,5,Pittsburgh Penguins,4,OT,18652,2:38,
-2017-10-04,Philadelphia Flyers,5,San Jose Sharks,3,,17562,2:27,
