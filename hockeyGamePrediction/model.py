@@ -25,7 +25,7 @@ my_data = my_data.drop('Unnamed: 0', axis=1)
 
 dataset = my_data.values
 
-X = dataset[:,0:38].astype(float)
+X = dataset[:,0:38]
 Y = dataset[:,38]
 
 # encode class values as integers
@@ -38,10 +38,13 @@ def create_baseline():
 	# create model
 	model = Sequential()
 	model.add(Dense(38, input_dim=38, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
-	model.add(Dense(50, activation='softmax'))
+	model.add(Dense(100, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(100, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(100, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(100, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(100, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(100, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(1, kernel_initializer='normal', activation='softmax'))
 	# Compile model
 	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 	return model
