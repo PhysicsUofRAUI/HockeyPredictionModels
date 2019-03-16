@@ -34,7 +34,6 @@ encoder.fit(Y)
 encoded_Y = encoder.transform(Y)
 
 print("Number,results,epochs,batch_size,number of layers")
-print("\n")
 # baseline model
 def create_baseline():
 	# create model
@@ -52,7 +51,4 @@ def create_baseline():
 estimator = KerasClassifier(build_fn=create_baseline, epochs=10, batch_size=25, verbose=1)
 kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
 results = cross_val_score(estimator, X, encoded_Y, cv=kfold)
-print("1,")
-print("Results: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
-print("10000,25,3")
-print("\n")
+print("1, %.2f%% , (%.2f%%) ,10000,25,3" % (results.mean()*100, results.std()*100))
