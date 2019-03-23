@@ -1,0 +1,36 @@
+Using TensorFlow backend.
+WARNING:tensorflow:From /home/kodyrogers21/.local/lib/python3.5/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+WARNING:tensorflow:From /home/kodyrogers21/.local/lib/python3.5/site-packages/tensorflow/python/ops/math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2019-03-16 21:04:31.485328: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-03-16 21:04:31.492078: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2300000000 Hz
+2019-03-16 21:04:31.492386: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x478cd00 executing computations on platform Host. Devices:
+2019-03-16 21:04:31.492436: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+Number,results,epochs,batch_size,number of layers
+1, 52.26% , (1.93%) ,500,25,3
+1, 53.93% , (2.77%) ,500,25,1
+1, 53.79% , (1.80%) ,500,25,2
+1, 53.83% , (2.04%) ,500,25,4
+1, 52.58% , (2.19%) ,500,25,5
+1, 53.81% , (1.31%) ,500,25,6
+1, 53.08% , (1.43%) ,500,25,8
+1, 52.46% , (2.89%) ,500,25,10
+1, 50.69% , (2.40%) ,1000,25,3
+1, 52.70% , (3.08%) ,1000,25,1
+1, 50.99% , (2.15%) ,1000,25,2
+1, 50.95% , (2.12%) ,1000,25,4
+1, 52.32% , (2.60%) ,1000,25,5
+1, 52.70% , (1.78%) ,1000,25,6
+1, 53.10% , (1.60%) ,1000,25,8
+1, 53.48% , (2.05%) ,1000,25,10
+1, 51.43% , (1.28%) ,2000,25,3
+1, 52.76% , (2.53%) ,2000,25,1
+1, 50.99% , (2.49%) ,2000,25,2
+1, 52.56% , (1.30%) ,2000,25,4
+1, 53.04% , (2.36%) ,2000,25,5
+1, 52.86% , (2.02%) ,2000,25,6
+1, 53.79% , (2.01%) ,2000,25,8
+1, 52.66% , (1.70%) ,2000,25,10
