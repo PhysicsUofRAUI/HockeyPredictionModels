@@ -29,7 +29,7 @@ my_dummies["result"] = score
 
 print(my_dummies)
 
-dataset = my_data.values
+dataset = my_dummies.values
 
 X = dataset[:,0:12993]
 Y = dataset[:,12993]
