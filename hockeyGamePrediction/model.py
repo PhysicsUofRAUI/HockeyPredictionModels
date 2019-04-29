@@ -45,9 +45,9 @@ def create_baseline():
 	# create model
 	model = Sequential()
 	model.add(Dense(12993, input_dim=12993, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(50, kernel_initializer='normal', activation='sigmoid'))
-	model.add(Dense(50, kernel_initializer='normal', activation='sigmoid'))
-	model.add(Dense(50, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(5000, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(5000, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(5000, kernel_initializer='normal', activation='sigmoid'))
 	model.add(Dense(1, kernel_initializer='normal', activation='sigmoid'))
 	# Compile model
 	model.compile(loss='binary_crossentropy', optimizer='adagrad', metrics=['accuracy'])
