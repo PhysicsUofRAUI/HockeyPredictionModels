@@ -45,16 +45,16 @@ def create_baseline():
 	# create model
 	model = Sequential()
 	model.add(Dense(12993, input_dim=12993, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(5000, kernel_initializer='normal', activation='sigmoid'))
-	model.add(Dense(5000, kernel_initializer='normal', activation='sigmoid'))
-	model.add(Dense(5000, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(2500, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(2500, kernel_initializer='normal', activation='sigmoid'))
+	model.add(Dense(2500, kernel_initializer='normal', activation='sigmoid'))
 	model.add(Dense(1, kernel_initializer='normal', activation='sigmoid'))
 	# Compile model
 	model.compile(loss='binary_crossentropy', optimizer='adagrad', metrics=['accuracy'])
 	return model
 
 # evaluate model with standardized dataset
-estimator = KerasClassifier(build_fn=create_baseline, epochs=500, batch_size=5, verbose=0)
+estimator = KerasClassifier(build_fn=create_baseline, epochs=500, batch_size=250, verbose=0)
 kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
 results = cross_val_score(estimator, X, encoded_Y, cv=kfold)
 print("1, %.2f%% , (%.2f%%) ,500,25,3" % (results.mean()*100, results.std()*100))
