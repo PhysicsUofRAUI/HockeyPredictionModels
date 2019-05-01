@@ -54,7 +54,7 @@ def create_baseline():
 	return model
 
 # evaluate model with standardized dataset
-estimator = KerasClassifier(build_fn=create_baseline, epochs=500, batch_size=500, verbose=1)
+estimator = KerasClassifier(build_fn=create_baseline, epochs=500, batch_size=5, verbose=1)
 kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
 results = cross_val_score(estimator, X, encoded_Y, cv=kfold)
 print("1, %.2f%% , (%.2f%%) ,500,25,3" % (results.mean()*100, results.std()*100))
